@@ -26,6 +26,7 @@ API_PROXY_TOKEN = os.getenv("API_PROXY_TOKEN")
 
 # Dependency to verify token
 def verify_token(token: str = Form(...)):
+    print("Incoming TOKEN:", repr(token))
     if token != API_PROXY_TOKEN:
         raise HTTPException(status_code=401, detail="Invalid API Token")
     return token
@@ -49,6 +50,6 @@ async def process_question(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
